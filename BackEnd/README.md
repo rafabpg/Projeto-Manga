@@ -5,5 +5,6 @@
     <li>NodeJS</li>
     <li>PostgreSQL</li>
     <li>Javascript</li>
+    <li>jsonwebtoken</li>
 </ul>
 
