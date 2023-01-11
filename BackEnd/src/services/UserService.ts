@@ -20,13 +20,10 @@ export class CreateUserService{
                 password:password
            }
         })
-        // await this.usersRepository.createUser({
-        //     name:name,
-        //     email:email,
-        //     username:username,
-        //     lastname:lastname,
-        //     password:password
-        // })
+    }
+    async getAllService(){
+       const usersAll =  await prisma.user.findMany();
+       return usersAll;
     }
 }
 

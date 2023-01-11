@@ -12,20 +12,19 @@ usersRoutes.post('/', (request, response) => {
    return userController.handle(request, response);
 })
 
+usersRoutes.get('/', (request, response) => {
+    return userController.getAll(request, response);
+})
 
-// usersRoutes.get('/', (request, response) => {
+// usersRoutes.get('/:id', (request, response) => {
 //     return 
 // })
 
-// usersRoutes.put('/', (request, response) => {
+// usersRoutes.put('/:id', (request, response) => {
 //     return 
 // })
 
-// usersRoutes.delete('/', (request, response) => {
-//     return 
-// })
-
-// usersRoutes.post('/', (request, response) => {
+// usersRoutes.delete('/:id', (request, response) => {
 //     return 
 // })
 
