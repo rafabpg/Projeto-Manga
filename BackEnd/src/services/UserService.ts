@@ -26,7 +26,7 @@ export class CreateUserService{
        return usersAll;
     }
     async getSpecificUserService(identifier:string){
-        const userSpecificSevice = await prisma.user.findFirst({
+        const userSpecificSevice = await prisma.user.findUnique({
             where:{
                 id:Number(identifier),
             },

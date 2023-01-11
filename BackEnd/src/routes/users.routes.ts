@@ -1,13 +1,15 @@
 import { Router } from "express";
  import { CreateUserController } from './../controller/UserController';
 import { CreateUserService } from "./../services/UserService";
+// import { checkingExistEmail,checkingExistUsername } from "../middlewares/CheckingExistingInf";
+// const teste = require("../middlewares/CheckingExistingInf");
 
 const usersRoutes = Router();
 const userService = new CreateUserService();
 const userController = new CreateUserController(userService);
 
 
-usersRoutes.post('/', (request, response) => {
+usersRoutes.post('/',(request, response) => {
    return userController.handle(request, response);
 })
 

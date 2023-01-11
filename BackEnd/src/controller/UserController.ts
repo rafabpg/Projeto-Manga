@@ -1,6 +1,7 @@
 import {Request,Response} from 'express';
 // import { prisma } from '../../database';
 import { CreateUserService } from './../services/UserService';
+import { checkingCredencialsExist } from '../middlewares/CheckingExistingInf';
 
 
 
@@ -10,7 +11,10 @@ class CreateUserController{
     async handle(request:Request,response:Response){
         const {email,name,username,lastname,password} = request.body;
         try {
-            this.userService.execute({email,name,username,lastname,password})
+            if(typeof email != 'string')throw Error();
+            const checkCredencials = await checkingCredencialsExist(username,email);
+            if(!checkCredencials) throw new Error();
+            await this.userService.execute({email,name,username,lastname,password})
             return response.status(201).send();
         } catch (error) {
             return response.status(400).send({error:'Falha no Resgistro do Usuário'});
@@ -19,7 +23,8 @@ class CreateUserController{
     async getAll(request:Request,response:Response){
         try {
             const allUsers =  await this.userService.getAllService();
-            console.log(allUsers);
+            if(allUsers.length == 0) throw new Error();
+            // console.log(allUsers);
             return response.status(201).json(allUsers);
             // return response.status(201).send({message:'foi'});
         } catch (error) {
@@ -31,12 +36,17 @@ class CreateUserController{
         const {id} = request.params;
         try {
             const specificUser = await this.userService.getSpecificUserService(id);
-            console.log(specificUser);
+            if(specificUser == null ) throw new Error();
+            // console.log(specificUser);
             return response.status(201).json(specificUser);
         } catch (error) {
             return response.status(400).send({error:'Usuario não encontrado'});
         }
     }
+
+    
+    //criar middleware pra criação de usuario
+    //fazer o update user 
 
     // async updateUser(request:Request,response:Response){
     //     const {id} = request.params;
