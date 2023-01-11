@@ -1,5 +1,5 @@
 import { prisma } from '../database';
-// import { Request,Response } from "express";
+// import e, { Request,Response } from "express";
 // import { NextFunction } from "express";
 
 
@@ -18,10 +18,13 @@ export async function checkingCredencialsExist(username:string,email:string): Pr
 
 // module.exports = function addNewHeader(request:Request, response:Response, next:NextFunction) {
 //     console.log('teste');
-//     const { username } = request.body;
+//     const { username,email} = request.body;
 //     let checkUsername = prisma.user.findFirst({
 //         where:{
 //             username:username,
+//             OR:{
+//                 email:email,
+//             }
 //         }
 //     });  
 //     if(checkUsername == null) return response.status(400).json({erro:"Esse username já esta sendo usado"});

@@ -21,9 +21,9 @@ usersRoutes.get('/:id', (request, response) => {
     return userController.getSpecificUser(request, response);
 })
 
-// usersRoutes.put('/:id', (request, response) => {
-//     return userController.updateUser(request, response);
-// })
+usersRoutes.put('/:id', (request, response) => {
+    return userController.updateUser(request, response);
+})
 
 usersRoutes.delete('/:id', (request, response) => {
     return userController.deleteUser(request, response);

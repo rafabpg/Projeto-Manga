@@ -26,25 +26,31 @@ export class CreateUserService{
        return usersAll;
     }
     async getSpecificUserService(identifier:string){
-        const userSpecificSevice = await prisma.user.findUnique({
+        const userSpecificSevice = await prisma.user.findFirst({
             where:{
                 id:Number(identifier),
+                AND:{
+                    role:'USER'
+                }
             },
         })
         return userSpecificSevice;
     }
-    // async updateUserService(identifier:string){
-    //     const updateUser = await prisma.user.update({
-    //         where:{
-    //             id:Number(identifier),
-    //         },
-    //         data:{
-
-    //         }
-    //     })
-    // }
+    async updateUserService(identifier:string,name?:string,lastname?:string,password?:string){
+        const updateUser = await prisma.user.update({
+            where:{
+                id:Number(identifier),
+            },
+            data:{
+                name:name,
+                lastname:lastname,
+                password:password,
+            }
+        })
+        return updateUser;
+    }
     async deleteUserService(identifier:string){
-        const deleteUser = await prisma.user.delete({
+        await prisma.user.delete({
             where: {
                 id:Number(identifier),
             },

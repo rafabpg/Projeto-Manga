@@ -11,7 +11,7 @@ class CreateUserController{
     async handle(request:Request,response:Response){
         const {email,name,username,lastname,password} = request.body;
         try {
-            if(typeof email != 'string')throw Error();
+            // if( (typeof email != 'string')  )throw Error();
             const checkCredencials = await checkingCredencialsExist(username,email);
             if(!checkCredencials) throw new Error();
             await this.userService.execute({email,name,username,lastname,password})
@@ -25,7 +25,7 @@ class CreateUserController{
             const allUsers =  await this.userService.getAllService();
             if(allUsers.length == 0) throw new Error();
             // console.log(allUsers);
-            return response.status(201).json(allUsers);
+            return response.status(200).json(allUsers);
             // return response.status(201).send({message:'foi'});
         } catch (error) {
             return response.status(400).send({error:'Falha no get dos Usuarios'});
@@ -38,31 +38,32 @@ class CreateUserController{
             const specificUser = await this.userService.getSpecificUserService(id);
             if(specificUser == null ) throw new Error();
             // console.log(specificUser);
-            return response.status(201).json(specificUser);
+            return response.status(200).json(specificUser);
         } catch (error) {
             return response.status(400).send({error:'Usuario não encontrado'});
         }
     }
 
     
-    //criar middleware pra criação de usuario
-    //fazer o update user 
+    // fazer o update user 
 
-    // async updateUser(request:Request,response:Response){
-    //     const {id} = request.params;
-    //     // const {name,lastname,password} = body.params;
-    //     try {
-            
-    //     } catch (error) {
-    //         return response.status(400).send({error:'Não foi possivel atualizar'});
-    //     }
+    async updateUser(request:Request,response:Response){
+        const {id} = request.params;
+        const {name,lastname,password} = request.body;
+        try {
+            const updateUserController = await this.userService.updateUserService(id,name,lastname,password);
+            return response.status(200).json(updateUserController);
+        } catch (error) {
+            return response.status(400).send({error:'Não foi possivel atualizar'});
+        }
 
-    // }
+    }
+
     async deleteUser(request:Request,response:Response){
         const {id} = request.params;
         try {
             await this.userService.deleteUserService(id);
-            return response.status(201).send({message:'usuario deletado com sucesso'});
+            return response.status(200).send({message:'usuario deletado com sucesso'});
         } catch (error) {
             return response.status(400).send({error:'Não foi possivel deletar Usuario'});
         }
