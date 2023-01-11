@@ -1,5 +1,4 @@
 import { Router } from "express";
-// import {v4 as uuidV4} from "uuid"
  import { CreateUserController } from './../controller/UserController';
 import { CreateUserService } from "./../services/UserService";
 
@@ -16,17 +15,17 @@ usersRoutes.get('/', (request, response) => {
     return userController.getAll(request, response);
 })
 
-// usersRoutes.get('/:id', (request, response) => {
-//     return 
-// })
+usersRoutes.get('/:id', (request, response) => {
+    return userController.getSpecificUser(request, response);
+})
 
 // usersRoutes.put('/:id', (request, response) => {
-//     return 
+//     return userController.updateUser(request, response);
 // })
 
-// usersRoutes.delete('/:id', (request, response) => {
-//     return 
-// })
+usersRoutes.delete('/:id', (request, response) => {
+    return userController.deleteUser(request, response);
+})
 
 
 
