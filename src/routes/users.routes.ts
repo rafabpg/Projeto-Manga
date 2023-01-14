@@ -1,11 +1,12 @@
 import { Router } from "express";
  import { CreateUserController } from './../controller/UserController';
 import { CreateUserService } from "./../services/UserService";
-// import { checkingExistEmail,checkingExistUsername } from "../middlewares/CheckingExistingInf";
-// const teste = require("../middlewares/CheckingExistingInf");
+import { UserRepository } from "../repositories/implementations/UserRepository";
+
 
 const usersRoutes = Router();
-const userService = new CreateUserService();
+const userRepository = new UserRepository();
+const userService = new CreateUserService(userRepository);
 const userController = new CreateUserController(userService);
 
 
