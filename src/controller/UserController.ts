@@ -12,8 +12,8 @@ class CreateUserController{
         const {email,name,username,lastname,password} = request.body;
         try {
             // if( (typeof email != 'string')  )throw Error();
-            const checkCredencials = await checkingCredencialsExist(username,email);
-            if(!checkCredencials) throw new Error();
+            // const checkCredencials = await checkingCredencialsExist(username,email);
+            // if(!checkCredencials) throw new Error();
             await this.userService.execute({email,name,username,lastname,password})
             return response.status(201).send();
         } catch (error) {
