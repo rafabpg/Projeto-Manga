@@ -12,10 +12,10 @@ class CreateUserController{
         const {email,name,username,lastname,password} = request.body;
         try {
             // if( (typeof email != 'string')  )throw Error();
-            const checkCredencials = await checkingCredencialsExist(username,email);
-            if(!checkCredencials) throw new Error();
+            // const checkCredencials = await checkingCredencialsExist(username,email);
+            // if(!checkCredencials) throw new Error();
             await this.userService.execute({email,name,username,lastname,password})
-            return response.status(201).send();
+            return response.status(201).send({message:'Usuário criado com sucesso'});
         } catch (error) {
             return response.status(400).send({error:'Falha no Resgistro do Usuário'});
         }
