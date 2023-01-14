@@ -1,5 +1,4 @@
-// import { prisma } from '../../database';
-import { prisma } from '../database';
+import { UserRepository } from '../repositories/implementations/UserRepository';
 
 interface CreateUserRequest{
     name:string,
@@ -8,82 +7,57 @@ interface CreateUserRequest{
     lastname?:string,
     password:string
 }
+interface UpdateUserRequest{
+    id:string,
+    name?:string,
+    lastname?:string,
+    password?:string
+}
+
 
 export class CreateUserService{
+    constructor( private userRepository: UserRepository){}
+
     async execute({name,email,username,lastname,password}:CreateUserRequest){
-        await prisma.user.create({
-           data:{
-                name:name,
-                email:email,
-                username:username,
-                lastname:lastname,
-                password:password
-           }
-        })
+        let checkUsername = await this.userRepository.findByUsername(username);
+        if(checkUsername){
+            throw Error('Username ja em uso');
+        } 
+        else{
+            let checkEmail = await this.userRepository.findByUsername(username);
+            if(checkEmail){
+                throw Error('Email ja em uso');
+            } 
+            this.userRepository.createUser({name,email,username,lastname,password})
+        }
     }
+
     async getAllService(){
-       const usersAll =  await prisma.user.findMany();
-       return usersAll;
+        const allUser = await this.userRepository.listUser();
+        return allUser;
     }
+
     async getSpecificUserService(identifier:string){
-        const userSpecificSevice = await prisma.user.findFirst({
-            where:{
-                id:Number(identifier),
-                AND:{
-                    role:'USER'
-                }
-            },
-        })
-        return userSpecificSevice;
+        const userSpecificService = await this.userRepository.readUser(identifier);
+        if(userSpecificService == null) throw Error('Usuario não encontrado');
+        //checar se foi falso
+        return userSpecificService;
     }
-    async updateUserService(identifier:string,name?:string,lastname?:string,password?:string){
-        const updateUser = await prisma.user.update({
-            where:{
-                id:Number(identifier),
-            },
-            data:{
-                name:name,
-                lastname:lastname,
-                password:password,
-            }
-        })
+
+    async updateUserService({id,name,lastname,password}:UpdateUserRequest){
+        const userSpecificService = await this.userRepository.readUser(id);
+        if(userSpecificService == null) throw Error('Usuario não encontrado');
+        const updateUser = await this.userRepository.updateUser({id,name,lastname,password});
         return updateUser;
     }
+
     async deleteUserService(identifier:string){
-        await prisma.user.delete({
-            where: {
-                id:Number(identifier),
-            },
-        });
+        //check if user exist
+        const userSpecificService = await this.userRepository.readUser(identifier);
+        if(userSpecificService == null) throw Error('Usuario não encontrado');
+        this.userRepository.deleteUser(identifier);
     }
 }
 
 
-// class CreateUserService{
 
-//     // constructor( private specificationRepository: ISpecificationRepositories){}
-
-//     async execute({name,email,username,lastname,password}:CreateUserDTO){
-//         // const SpecificationAlreadyExist = this.specificationRepository.findByName(name);
-//         // if(SpecificationAlreadyExist) throw new Error("Category already exist");
-//         const user = await prisma.user.create({
-//             data:{//data = inserir informação
-//                 name:name,
-//                 email:email,
-//                 username:username,
-//                 lastname:lastname,
-//                 password:password
-//             }
-//         })
-//         return user;
-//         // this.specificationRepository.create({
-//         //     name,
-//         //     email,
-//         //     username,
-//         //     lastname,
-//         //     password
-            
-//         // })
-//     }
-// }
-// export { CreateUserService};

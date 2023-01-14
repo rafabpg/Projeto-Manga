@@ -31,8 +31,18 @@ class UserRepository implements IUserRepository {
         })
         return SpecificUser;
     }
-    async updateUser(user: any): Promise<User > {
-        throw new Error('Method not implemented.');
+    async updateUser({id,name,lastname,password}: any): Promise<User > {
+        const updateUser = await prisma.user.update({
+            where:{
+                id:Number(id),
+            },
+            data:{
+                name:name,
+                lastname:lastname,
+                password:password,
+            }
+        })
+        return updateUser;
     }
 
     async deleteUser(id: string): Promise<void> {
@@ -41,6 +51,24 @@ class UserRepository implements IUserRepository {
                 id:Number(id),
             },
         });
+    }
+    async findByUsername(username:string):Promise<Boolean>{
+        let checkUsername = await prisma.user.findFirst({
+            where:{
+                username:username,
+            }
+        });
+        if(checkUsername == null) return false;
+        return true;
+    }
+    async findByEmail(email:string):Promise<Boolean>{
+        let checkEmail = await prisma.user.findFirst({
+            where:{
+                email:email,
+            }
+        });
+        if(checkEmail == null) return false;
+        return true;
     }
 }
 

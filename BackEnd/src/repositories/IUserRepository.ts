@@ -7,6 +7,8 @@ interface IUserRepository{
     readUser(id:string):Promise<User | null>;
     updateUser(user:any):Promise<User>;
     deleteUser(id:string):Promise<void>;
+    findByUsername(username:string):Promise<Boolean>;
+    findByEmail(email:string):Promise<Boolean>;
 }
 // id:string,name:string,lastname:string,password:string
 export {IUserRepository};
