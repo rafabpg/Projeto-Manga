@@ -5,5 +5,7 @@ const router = Router();
 
 router.use("/users",usersRoutes);
 
+router.use("/mangas",usersRoutes);
+
 
 export {router}
