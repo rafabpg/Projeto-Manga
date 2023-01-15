@@ -23,10 +23,20 @@ model Manga{
   updatedAt DateTime @updatedAt
   title     String   @db.VarChar(255)
   description   String?
+  capaImagem String @unique
   published Boolean  @default(false)
   status Status  @default(Ongoing)
   author String? @db.VarChar(255)
   categories CategoriesOnManga[]
+  chapters Chapter[]
+}
+
+model Chapter{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  imagem String @unique
+  manga Manga @relation(fields: [mangaID], references: [id])
+  mangaID Int
 }
 
 model Category{
