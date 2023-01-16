@@ -5,12 +5,12 @@ import { prisma } from '../database';
 
 
 class MangaRepositorie implements IMangaRepository{
-    async createManga({title,description,capaImagem,author}: CreateMangaDTO): Promise<void> {
+    async createManga({title,description,capaURL,author}: CreateMangaDTO): Promise<void> {
         await prisma.manga.create({
             data:{
                 title: title,
                 description:description,
-                capa:capaImagem,
+                capaURL:capaURL,
                 author:author
             }
         })
@@ -29,7 +29,7 @@ class MangaRepositorie implements IMangaRepository{
         })
         return specificManga;
     }
-    async updateManga({id,title,description,author,capaImagem}: any): Promise<Manga> {
+    async updateManga({id,title,description,author,capaURL}: any): Promise<Manga> {
         const updateUser = await prisma.manga.update({
             where:{
                 id:Number(id),
@@ -38,7 +38,7 @@ class MangaRepositorie implements IMangaRepository{
                 title:title,
                 description:description,
                 author:author,
-                capa:capaImagem
+                capaURL:capaURL
             }
         })
         return updateUser

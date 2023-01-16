@@ -5,7 +5,7 @@ class CategoryController{
     constructor(private categoryService : CategoryService){}
 
     async handle(request:Request,response:Response){
-        const name = request.body;
+        const {name} = request.body;
         try {
             await this.categoryService.execute({name});
             return response.status(201).send({message:'Categoria criado com sucesso'});
@@ -23,6 +23,16 @@ class CategoryController{
             return response.status(404).json({error: error.message});
         }
     }
+
+    async getAll(request:Request,response:Response){
+        try {
+            const getAllCat = await this.categoryService.getAllCategoriesService();
+            return response.status(200).json(getAllCat);
+        } catch (error:any) {
+            return response.status(404).json({error: error.message});
+        }
+    }
+
 
     async deleteCategory(request:Request,response:Response){
         const {id} = request.params;

@@ -4,7 +4,7 @@ interface UpdateMangaRequest{
     id:string
     title?:string 
     description?:string
-    capaImagem?: string 
+    capaURL?: string 
     author?: string
 }
 
@@ -12,20 +12,20 @@ interface UpdateMangaRequest{
 interface CreateMangaRequest{
     title:string 
     description?:string
-    capaImagem: string 
+    capaURL: string 
     author?: string
 }
 
 export class MangaService{
     constructor( private mangaRepository: MangaRepositorie){}
 
-    async execute({title,description,capaImagem,author}:CreateMangaRequest){
+    async execute({title,description,capaURL,author}:CreateMangaRequest){
         let checkTitle = await this.mangaRepository.findByTitle(title);
         if(checkTitle){
             throw Error('Titulo já em uso');
         } 
         else{
-            this.mangaRepository.createManga({title,description,capaImagem,author});
+            this.mangaRepository.createManga({title,description,capaURL,author});
         }
     }
 
@@ -41,10 +41,10 @@ export class MangaService{
         return mangaSpecificService;
     }
 
-    async updateMangaService({id,title,description,capaImagem,author}:UpdateMangaRequest){
+    async updateMangaService({id,title,description,capaURL,author}:UpdateMangaRequest){
         const mangaSpecificService = await this.mangaRepository.readManga(id);
         if(mangaSpecificService == null) throw Error('Manga não encontrado');
-        const updateUser = await this.mangaRepository.updateManga({id,title,description,capaImagem,author});
+        const updateUser = await this.mangaRepository.updateManga({id,title,description,capaURL,author});
         return updateUser;
     }
 

@@ -3,7 +3,7 @@
 interface CreateMangaDTO{
     title:string 
     description?:string
-    capaImagem: string 
+    capaURL: string 
     author?: string
 }
 

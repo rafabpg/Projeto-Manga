@@ -39,10 +39,14 @@ class CategoryRepository implements ICategoryRepository{
                 name: name,
             },
         })
+        console.log(checkTitle);    
         if (checkTitle == null)  return false;
         return true;
     }
-
+    async getAll(): Promise<Category[]> {
+        const getAllCategories = await prisma.category.findMany()
+        return getAllCategories;
+    }
 }
 
 export {CategoryRepository};

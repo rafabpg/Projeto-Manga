@@ -22,5 +22,9 @@ export class CategoryService{
         if(checkCategoryExist== null) throw Error('Categoria não encontrado');
         await this.categoryRepository.deleteCategory(id);
     }
+    async getAllCategoriesService(){
+         const getAllCategories = await this.categoryRepository.getAll();
+         return getAllCategories;
+    }
 
 }

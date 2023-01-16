@@ -21,7 +21,7 @@ mangaRoutes.post('/',(request, response) => {
      return mangaController.getSpecificManga(request, response);
  })
  
-mangaRoutes.get('/:author', (request, response) => {
+mangaRoutes.get('/author/:author', (request, response) => {
     return mangaController.getMangaByAuthor(request, response);
 })
 

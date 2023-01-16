@@ -7,9 +7,9 @@ class MangaController{
     constructor(private mangaService : MangaService){}
 
     async handle(request:Request,response:Response){
-        const {title,description,capaImagem,author} = request.body;
+        const {title,description,capaURL,author} = request.body;
         try {
-            await this.mangaService.execute({title,description,capaImagem,author});
+            await this.mangaService.execute({title,description,capaURL,author});
             return response.status(201).send({message:'Manga criado com sucesso'});
         } catch (error:any) {
             return response.status(400).json({error: error.message});
@@ -47,9 +47,9 @@ class MangaController{
 
     async updateManga(request:Request,response:Response){
         const {id} = request.params;
-        const {title,description,capaImagem,author} = request.body;
+        const {title,description,capaURL,author} = request.body;
         try {
-            const updateMangaController = await this.mangaService.updateMangaService({id,title,description,capaImagem,author});
+            const updateMangaController = await this.mangaService.updateMangaService({id,title,description,capaURL,author});
             return response.status(200).json(updateMangaController);
         } catch (error:any) {
             return response.status(400).json({error: error.message});

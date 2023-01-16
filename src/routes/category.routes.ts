@@ -12,8 +12,12 @@ const categoryController = new CategoryController(categoryService);
 categoryRoutes.post('/',(request, response) => {
     return categoryController.handle(request, response);
  })
- 
- categoryRoutes.get('/:id', (request, response) => {
+
+ categoryRoutes.get('/', (request, response) => {
+    return categoryController.getAll(request, response);
+})
+
+    categoryRoutes.get('/:id', (request, response) => {
      return categoryController.getSpecificCategory(request, response);
  })
  

@@ -21,24 +21,24 @@ model Manga{
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255) @unique
+  title     String   @unique
   description   String?
-  capa String @unique
+  capaURL  String  @unique
   published Boolean  @default(false)
   status Status  @default(Ongoing)
-  author String? @db.VarChar(255)
+  author String? 
   categories CategoriesOnManga[]
-  chapters Chapter[]
+  // chapters Chapter[]
 }
 
-model Chapter{
-  id Int @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  title String @db.VarChar(255)
-  imagem String @unique
-  manga Manga @relation(fields: [mangaID], references: [id])
-  mangaID Int
-}
+// model Chapter{
+//   id Int @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   title String @db.VarChar(255)
+//   imagem String @unique
+//   manga Manga @relation(fields: [mangaID], references: [id])
+//   mangaID Int
+// }
 
 model Category{
   id Int @id @default(autoincrement())
@@ -51,9 +51,7 @@ model CategoriesOnManga{
   mangaId     Int 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int 
-  assignedAt DateTime @default(now())
-  assignedBy String
-
+  
   @@id([mangaId, categoryId])
 }
 
