@@ -8,4 +8,9 @@ export class MangaCategoryController{
         await this.mangaCategoryService.execute({mangaId,categoryId});
         return response.status(201).send({message:'Relação criada com sucesso'});
     }
+    async deleteRelation(request:Request,response:Response){
+        const {mangaId,categoryId } = request.body;
+        await this.mangaCategoryService.delete({mangaId,categoryId});
+        return response.status(201).send({message:'Relação deletada com sucesso'});
+    }
 }

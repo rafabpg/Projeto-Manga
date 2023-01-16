@@ -13,8 +13,13 @@ class MangaCategoryRepository implements IMangaCategoryRepository{
             }
         })
     }
-    deleteMangaCategoryRelation(deleteCategoryManga: CreateMangaCategoryDTO): Promise<void> {
-        throw new Error("Method not implemented.");
+    async deleteMangaCategoryRelation({mangaId,categoryId}: CreateMangaCategoryDTO): Promise<void> {
+        await prisma.categoriesOnManga.deleteMany({
+            where:{
+                mangaId:Number(mangaId),
+                categoryId:Number( categoryId),
+            }
+        })
     }
     // async findByIDRelation({mangaId,categoryId}:CreateMangaCategoryDTO):Promise<CategoriesOnManga | null>{
     //     const mangasTitle = await prisma.manga.findFirst({
