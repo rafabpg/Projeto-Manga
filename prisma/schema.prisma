@@ -21,9 +21,9 @@ model Manga{
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
+  title     String   @db.VarChar(255) @unique
   description   String?
-  capaImagem String @unique
+  capa String @unique
   published Boolean  @default(false)
   status Status  @default(Ongoing)
   author String? @db.VarChar(255)
@@ -34,6 +34,7 @@ model Manga{
 model Chapter{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
+  title String @db.VarChar(255)
   imagem String @unique
   manga Manga @relation(fields: [mangaID], references: [id])
   mangaID Int
