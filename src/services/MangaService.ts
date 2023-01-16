@@ -51,7 +51,7 @@ export class MangaService{
     async deleteMangaService(identifier:string){
         //check if user exist
         const mangaSpecificService = await this.mangaRepository.readManga(identifier);
-        if(mangaSpecificService == null) throw Error('Usuario não encontrado');
+        if(mangaSpecificService == null) throw Error('Manga não encontrado');
         this.mangaRepository.deleteManga(identifier);
     }
 

@@ -1,11 +1,14 @@
 import { Router } from "express";
 import { usersRoutes } from "./users.routes";
 import { mangaRoutes } from "./manga.routes";
+import { categoryRoutes } from "./category.routes";
 
 const router = Router();
 
 router.use("/users",usersRoutes);
 router.use("/mangas",mangaRoutes);
+router.use("/categories",categoryRoutes);
+
 
 
 export {router}
