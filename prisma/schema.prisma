@@ -35,7 +35,7 @@ model Chapter{
   createdAt DateTime @default(now())
   volume Int @unique
   description String?
-  // images String @unique
+  // images []String @unique
   //capa_url String @unique
   manga  Manga @relation(fields: [mangaId], references: [id])
   mangaId Int

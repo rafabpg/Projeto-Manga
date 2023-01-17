@@ -11,7 +11,7 @@ const mangaController = new MangaController(mangaService);
 
 mangaRoutes.post('/',(request, response) => {
     return mangaController.create(request, response);
- })
+})
  
  mangaRoutes.get('/', (request, response) => {
      return mangaController.getAll(request, response);
@@ -45,6 +45,11 @@ mangaRoutes.patch('/:id/categories', (request, response) => {
      return mangaController.delete(request, response);
  })
 
+//CAPITULOS
+
+// mangaRoutes.patch('/:id/chapters',(request, response) => {
+//     return mangaController.create(request, response);
+// })
 
 
 export {mangaRoutes};
