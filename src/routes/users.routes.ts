@@ -19,7 +19,7 @@ usersRoutes.get('/', auth.authToken, (request, response) => {
     return userController.getAll(request, response);
 })
 
-usersRoutes.get('/:id', (request, response) => {
+usersRoutes.get('/:id', (request , response) => {
     return userController.getSpecificUser(request, response);
 })
 
