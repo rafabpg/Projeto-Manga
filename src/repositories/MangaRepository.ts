@@ -35,7 +35,7 @@ class MangaRepositorie implements IMangaRepository{
         return specificManga;
     }
     async updateManga({id,title,description,author,capaURL}: any): Promise<Manga> {
-        const updateUser = await prisma.manga.update({
+        const updateManga = await prisma.manga.update({
             where:{
                 id:Number(id),
             },
@@ -46,7 +46,21 @@ class MangaRepositorie implements IMangaRepository{
                 capaURL:capaURL
             }
         })
-        return updateUser
+        return updateManga
+    }
+
+    async updateMangaCategories(id:string,newCategories: any):Promise<Manga> {
+        const updateMangaCat = await prisma.manga.update({
+            where:{
+                id:Number(id),
+            },
+            data:{
+                categories:{
+                    create:newCategories.map((Number(cat))=>({categoryId:cat.id}))
+                }
+            }
+        })
+        return updateMangaCat;
     }
 
     async deleteManga(id: string): Promise<void> {

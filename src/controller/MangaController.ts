@@ -56,6 +56,17 @@ class MangaController{
         }
     }
 
+    async updateMangaCategories(request:Request,response:Response){
+        const {id} = request.params;
+        const categories: string[] = request.body;
+        try {
+            const updateMangaController = await this.mangaService.updateMangaCategories(id,categories);
+            return response.status(200).json(updateMangaController);
+        } catch (error:any) {
+            return response.status(400).json({error: error.message});
+        }
+    }
+
     async delete(request:Request,response:Response){
         const {id} = request.params;
         try {

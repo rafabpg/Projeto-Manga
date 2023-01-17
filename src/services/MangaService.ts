@@ -48,6 +48,13 @@ class MangaService{
         return updateManga;
     }
 
+    async updateMangaCategories(id:string,newCategories:any){
+        const mangaSpecificService = await this.mangaRepository.findByID(id);
+        if(mangaSpecificService == null) throw Error('Manga não encontrado');
+        const updateManga = await this.mangaRepository.updateMangaCategories(id,newCategories);
+        return updateManga;
+    }
+
     async delete(id:string){
         //check if user exist
         const mangaSpecificService = await this.mangaRepository.findByID(id);

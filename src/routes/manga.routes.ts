@@ -37,6 +37,9 @@ mangaRoutes.patch('/:id/published', (request, response) => {
     return mangaController.publishManga(request, response);
 })
 
+mangaRoutes.patch('/:id/categories', (request, response) => {
+    return mangaController.updateMangaCategories(request, response);
+})
 
  mangaRoutes.delete('/:id', (request, response) => {
      return mangaController.delete(request, response);
