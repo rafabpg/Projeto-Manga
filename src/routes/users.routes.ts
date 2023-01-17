@@ -2,7 +2,7 @@ import { Router } from "express";
 import { UserController } from './../controller/UserController';
 import { UserService } from "./../services/UserService";
 import { UserRepository } from "../repositories/UserRepository";
-import { Authentication } from "../../prisma/middlewares/Authentication";
+import { Authentication } from "../middlewares/Authentication";
 
 
 const usersRoutes = Router();
