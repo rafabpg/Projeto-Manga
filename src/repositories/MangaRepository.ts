@@ -1,4 +1,4 @@
-import { Manga } from "@prisma/client";
+import { Category, Manga } from "@prisma/client";
 import { CreateMangaDTO } from "../dtos/CreateMangaDTO";
 import { IMangaRepository } from "./IMangaRepository";
 import { prisma } from '../database';
@@ -14,7 +14,8 @@ class MangaRepositorie implements IMangaRepository{
                     capaURL:capaURL,
                     author:author,
                     categories:{
-                        create:categories.map((itens: { id: any; }) =>({ categoryId: Number(itens.id)})) 
+                        create:
+                        categories.map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
                     }
             },
         })
@@ -48,15 +49,20 @@ class MangaRepositorie implements IMangaRepository{
         return updateManga
     }
 
-    async updateMangaCategories(id:string,newCategories: any):Promise<Manga> {
+    async updateMangaCategories(id:string,newCategories:[]):Promise<Manga> {
+        console.log(newCategories);
         const updateMangaCat = await prisma.manga.update({
             where:{
                 id:Number(id),
             },
             data:{
                 categories:{
-                    create:newCategories.map((itens: { id: any; }) =>({ categoryId: Number(itens.id)})) 
-                }
+                    deleteMany:{},
+                    create:
+                        newCategories.map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
+                    
+                }  
+                
             }
         })
         return updateMangaCat;

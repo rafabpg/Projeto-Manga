@@ -5,7 +5,7 @@ interface CreateMangaDTO{
     description?:string
     capaURL: string 
     author?: string
-    categories: any
+    categories: []
 }
 
 export {CreateMangaDTO};

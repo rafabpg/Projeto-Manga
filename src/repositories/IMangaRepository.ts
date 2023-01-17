@@ -1,4 +1,4 @@
-import { Manga } from '@prisma/client';
+import { Category, Manga } from '@prisma/client';
 import { CreateMangaDTO } from '../dtos/CreateMangaDTO';
 
 interface IMangaRepository{
@@ -6,7 +6,7 @@ interface IMangaRepository{
     getAll():Promise<Manga[]>;
     findByID(id:string):Promise<Manga | null>;
     updateManga(manga:any):Promise<Manga>;
-    updateMangaCategories(id:string,newCategories:any):Promise<Manga>;
+    updateMangaCategories(id:string,newCategories:[]):Promise<Manga>;
     deleteManga(id:string):Promise<void>;
     findByAuthor(author:string):Promise<Manga[]>;
     findByTitle(title:string):Promise<Manga | null>;

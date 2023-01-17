@@ -13,7 +13,7 @@ interface CreateMangaRequest{
     description?:string
     capaURL: string 
     author?: string
-    categories:any
+    categories:[]
 }
 
 class MangaService{
@@ -48,9 +48,10 @@ class MangaService{
         return updateManga;
     }
 
-    async updateMangaCategories(id:string,newCategories:any){
+    async updateMangaCategories(id:string,newCategories:[]){
         const mangaSpecificService = await this.mangaRepository.findByID(id);
         if(mangaSpecificService == null) throw Error('Manga não encontrado');
+        // const arrayCategory = newCategories.map((itens: { id: any; }) =>( Number(itens.id))) 
         const updateManga = await this.mangaRepository.updateMangaCategories(id,newCategories);
         return updateManga;
     }

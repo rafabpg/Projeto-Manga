@@ -28,17 +28,8 @@ model Manga{
   status Status  @default(Ongoing)
   author String? 
   categories CategoriesOnManga[]
-  // chapters Chapter[]
 }
 
-// model Chapter{
-//   id Int @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   title String @db.VarChar(255)
-//   imagem String @unique
-//   manga Manga @relation(fields: [mangaID], references: [id])
-//   mangaID Int
-// }
 
 model Category{
   id Int @id @default(autoincrement())
@@ -51,7 +42,7 @@ model CategoriesOnManga{
   mangaId     Int 
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int 
-  
+
   @@id([mangaId, categoryId])
 }
 
