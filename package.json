@@ -4,22 +4,28 @@
   "description": "<p>Tecnologias que serão utilizadas:</p> <ul>     <li>Prisma</li>     <li>NodeJS</li>     <li>PostgreSQL</li>     <li>Javascript</li> </ul>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.15",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.11.18",
+    "@types/uuid": "^9.0.0",
+    "nodemon": "^2.0.20",
     "prisma": "^4.8.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20",
-    "routes": "^2.1.0"
+    "jsonwebtoken": "^9.0.0",
+    "routes": "^2.1.0",
+    "uuid": "^9.0.0"
   }
 }

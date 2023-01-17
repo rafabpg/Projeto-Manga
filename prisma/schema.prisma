@@ -9,6 +9,7 @@ datasource db {
 
 model User{
   id  Int  @id @default(autoincrement())
+  createdAt DateTime @default(now())
   email  String  @unique
   name   String
   lastname   String?
@@ -16,10 +17,55 @@ model User{
   password String
   role    Role   @default(USER)
 }
+model Manga{
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String   @unique
+  description   String?
+  capaURL  String  @unique
+  published Boolean  @default(false)
+  status Status  @default(Ongoing)
+  author String? 
+  categories CategoriesOnManga[]
+  chapters Chapter[]
+}
+model Chapter{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  volume Int @unique
+  description String?
+  // images []String @unique
+  //capa_url String @unique
+  manga  Manga @relation(fields: [mangaId], references: [id])
+  mangaId Int
+ 
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+  name String @unique
+  mangas CategoriesOnManga[]
+}
+
+model CategoriesOnManga{
+  manga       Manga     @relation(fields: [mangaId], references: [id])
+  mangaId     Int 
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int 
+
+  @@id([mangaId, categoryId])
+}
+
+
 
 enum Role {
   USER
   ADMIN
+}
+enum Status {
+  Ongoing
+  Finished
 }
 
 // model Post {
