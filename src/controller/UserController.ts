@@ -1,10 +1,10 @@
 import {Request,Response} from 'express';
-import { CreateUserService } from './../services/UserService';
+import { UserService } from './../services/UserService';
 
 
 
 class UserController{
-    constructor(private userService : CreateUserService){}
+    constructor(private userService : UserService){}
 
     async create(request:Request,response:Response){
         const {email,name,username,lastname,password} = request.body;

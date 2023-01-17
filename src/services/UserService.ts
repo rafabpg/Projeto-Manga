@@ -15,7 +15,7 @@ interface UpdateUserRequest{
 }
 
 
-export class CreateUserService{
+class UserService{
     constructor( private userRepository: UserRepository){}
 
     async create({name,email,username,lastname,password}:CreateUserRequest){
@@ -58,6 +58,6 @@ export class CreateUserService{
         this.userRepository.delete(id);
     }
 }
-
+export  { UserService}
 
 

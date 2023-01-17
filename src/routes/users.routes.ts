@@ -1,12 +1,12 @@
 import { Router } from "express";
  import { UserController } from './../controller/UserController';
-import { CreateUserService } from "./../services/UserService";
+import { UserService } from "./../services/UserService";
 import { UserRepository } from "../repositories/UserRepository";
 
 
 const usersRoutes = Router();
 const userRepository = new UserRepository();
-const userService = new CreateUserService(userRepository);
+const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
 

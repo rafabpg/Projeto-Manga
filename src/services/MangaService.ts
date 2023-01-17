@@ -8,7 +8,6 @@ interface UpdateMangaRequest{
     author?: string
 }
 
-
 interface CreateMangaRequest{
     title:string 
     description?:string
@@ -17,7 +16,7 @@ interface CreateMangaRequest{
     id_category:string
 }
 
-export class MangaService{
+class MangaService{
     constructor( private mangaRepository: MangaRepositorie){}
 
     async create({title,description,capaURL,author,id_category}:CreateMangaRequest){
@@ -35,8 +34,8 @@ export class MangaService{
         return allMangas;
     }
 
-    async findByID(identifier:string){
-        const mangaSpecificService = await this.mangaRepository.findByID(identifier);
+    async findByID(id:string){
+        const mangaSpecificService = await this.mangaRepository.findByID(id);
         if(mangaSpecificService == null) throw new Error('Manga não encontrado');
         //checar se foi falso
         return mangaSpecificService;
@@ -49,11 +48,11 @@ export class MangaService{
         return updateManga;
     }
 
-    async delete(identifier:string){
+    async delete(id:string){
         //check if user exist
-        const mangaSpecificService = await this.mangaRepository.findByID(identifier);
+        const mangaSpecificService = await this.mangaRepository.findByID(id);
         if(mangaSpecificService == null) throw Error('Manga não encontrado');
-        this.mangaRepository.deleteManga(identifier);
+        this.mangaRepository.deleteManga(id);
     }
 
     async findByAuthor(author:string){
@@ -73,3 +72,4 @@ export class MangaService{
     }
     
 }
+export {MangaService};

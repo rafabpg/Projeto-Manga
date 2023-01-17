@@ -4,7 +4,7 @@ interface CreateCategoryRequest{
     name: string;
 }
 
-export class CategoryService{
+ class CategoryService{
     constructor( private categoryRepository: CategoryRepository){}
 
     async create({name}:CreateCategoryRequest){
@@ -28,3 +28,4 @@ export class CategoryService{
     }
 
 }
+export { CategoryService};
