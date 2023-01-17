@@ -1,41 +1,41 @@
 import {Request,Response} from 'express';
-import { CreateUserService } from './../services/UserService';
+import { UserService } from './../services/UserService';
 
 
 
-class CreateUserController{
-    constructor(private userService : CreateUserService){}
+class UserController{
+    constructor(private userService : UserService){}
 
-    async handle(request:Request,response:Response){
+    async create(request:Request,response:Response){
         const {email,name,username,lastname,password} = request.body;
-        await this.userService.execute({email,name,username,lastname,password});
+        await this.userService.create({email,name,username,lastname,password});
         return response.status(201).send({message:'Usuário criado com sucesso'});
     }
 
     async getAll(request:Request,response:Response){
-        const allUsers =  await this.userService.getAllService();
+        const allUsers =  await this.userService.getAll();
         return response.status(200).json(allUsers);
     }
     
     async getSpecificUser(request:Request,response:Response){
         const {id} = request.params;
-        const specificUser = await this.userService.getSpecificUserService(id);
+        const specificUser = await this.userService.getById(id);
         return response.status(200).json(specificUser);
     }
 
     async updateUser(request:Request,response:Response){
         const {id} = request.params;
         const {name,lastname,password} = request.body;
-        const updateUserController = await this.userService.updateUserService({id,name,lastname,password});
+        const updateUserController = await this.userService.update({id,name,lastname,password});
         return response.status(200).json(updateUserController);
     }
 
     async deleteUser(request:Request,response:Response){
         const {id} = request.params;
-        await this.userService.deleteUserService(id);
+        await this.userService.delete(id);
         return response.status(200).send({message:'usuario deletado com sucesso'});
     }
 
 }
 
-export {CreateUserController}
+export {UserController}

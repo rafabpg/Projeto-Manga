@@ -1,10 +1,10 @@
-import { CreateUserDTO } from '../../dtos/CreateUserDTO';
+import { UserDTO } from '../../dtos/CreateUserDTO';
 import { IUserRepository } from '../IUserRepository';
 import { prisma } from '../../database';
 import { User } from '@prisma/client';
 
 class UserRepository implements IUserRepository {
-    async createUser({name,email,username,lastname,password}: CreateUserDTO): Promise<void> {
+    async createUser({name,email,username,lastname,password}: UserDTO): Promise<void> {
         await prisma.user.create({
             data:{
                 name:name,
@@ -52,15 +52,19 @@ class UserRepository implements IUserRepository {
             },
         });
     }
-    async findByUsername(username:string):Promise<Boolean>{
-        let checkUsername = await prisma.user.findFirst({
-            where:{
-                username:username,
-            }
-        });
-        if(checkUsername == null) return false;
-        return true;
+    async findByUsername(username:string):Promise<User | null>{
+        try{
+            const user = await prisma.user.findFirst({
+                where:{
+                    username:username,
+                }
+            });
+            return user;
+        } catch {
+            throw new Error ('User not found');
+        }   
     }
+
     async findByEmail(email:string):Promise<Boolean>{
         let checkEmail = await prisma.user.findFirst({
             where:{

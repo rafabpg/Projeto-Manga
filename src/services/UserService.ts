@@ -15,10 +15,10 @@ interface UpdateUserRequest{
 }
 
 
-export class CreateUserService{
+class UserService{
     constructor( private userRepository: UserRepository){}
 
-    async execute({name,email,username,lastname,password}:CreateUserRequest){
+    async create({name,email,username,lastname,password}:CreateUserRequest){
         let checkUsername = await this.userRepository.findByUsername(username);
         if(checkUsername){
             throw Error('Username ja em uso');
@@ -32,26 +32,26 @@ export class CreateUserService{
         }
     }
 
-    async getAllService(){
+    async getAll(){
         const allUser = await this.userRepository.listUser();
         return allUser;
     }
 
-    async getSpecificUserService(identifier:string){
+    async getById(identifier:string){
         const userSpecificService = await this.userRepository.readUser(identifier);
         if(userSpecificService == null) throw Error('Usuario não encontrado');
         //checar se foi falso
         return userSpecificService;
     }
 
-    async updateUserService({id,name,lastname,password}:UpdateUserRequest){
+    async update({id,name,lastname,password}:UpdateUserRequest){
         const userSpecificService = await this.userRepository.readUser(id);
         if(userSpecificService == null) throw Error('Usuario não encontrado');
         const updateUser = await this.userRepository.updateUser({id,name,lastname,password});
         return updateUser;
     }
 
-    async deleteUserService(identifier:string){
+    async delete(identifier:string){
         //check if user exist
         const userSpecificService = await this.userRepository.readUser(identifier);
         if(userSpecificService == null) throw Error('Usuario não encontrado');
@@ -59,4 +59,4 @@ export class CreateUserService{
     }
 }
 
-
+export { UserService };

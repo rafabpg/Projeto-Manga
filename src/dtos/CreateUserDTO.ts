@@ -1,5 +1,5 @@
 
-interface CreateUserDTO{
+interface UserDTO{
     name:string,
     email:string,
     username:string,
@@ -7,4 +7,4 @@ interface CreateUserDTO{
     password:string
 }
 
-export {CreateUserDTO};
+export {UserDTO};
