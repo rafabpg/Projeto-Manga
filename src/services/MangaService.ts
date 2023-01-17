@@ -13,19 +13,19 @@ interface CreateMangaRequest{
     description?:string
     capaURL: string 
     author?: string
-    id_category:string
+    categories:any
 }
 
 class MangaService{
     constructor( private mangaRepository: MangaRepositorie){}
 
-    async create({title,description,capaURL,author,id_category}:CreateMangaRequest){
+    async create({title,description,capaURL,author,categories}:CreateMangaRequest){
         let checkTitle = await this.mangaRepository.findByTitle(title);
         if(checkTitle){
             throw Error('Titulo já em uso');
         } 
         else{
-            this.mangaRepository.createManga({title,description,capaURL,author,id_category});
+            this.mangaRepository.createManga({title,description,capaURL,author,categories});
         }
     }
 

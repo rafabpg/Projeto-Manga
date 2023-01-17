@@ -65,6 +65,7 @@ enum Status {
   Ongoing
   Finished
 }
+
 // model Post {
 //   id        Int      @id @default(autoincrement())
 //   createdAt DateTime @default(now())

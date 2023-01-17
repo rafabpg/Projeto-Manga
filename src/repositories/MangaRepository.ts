@@ -5,7 +5,8 @@ import { prisma } from '../database';
 
 
 class MangaRepositorie implements IMangaRepository{
-    async createManga({title,description,capaURL,author,id_category}: CreateMangaDTO): Promise<void> {
+    async createManga({title,description,capaURL,author,categories}: CreateMangaDTO): Promise<void>    {
+        console.log(categories);
         await prisma.manga.create({
             data:{
                     title: title,
@@ -13,9 +14,7 @@ class MangaRepositorie implements IMangaRepository{
                     capaURL:capaURL,
                     author:author,
                     categories:{
-                        create:{
-                            categoryId:Number(id_category)
-                        }
+                        create:categories.map((itens: { id: any; }) =>({ categoryId: Number(itens.id)})) 
                     }
             },
         })
@@ -56,7 +55,7 @@ class MangaRepositorie implements IMangaRepository{
             },
             data:{
                 categories:{
-                    create:newCategories.map((Number(cat))=>({categoryId:cat.id}))
+                    create:newCategories.map((itens: { id: any; }) =>({ categoryId: Number(itens.id)})) 
                 }
             }
         })
