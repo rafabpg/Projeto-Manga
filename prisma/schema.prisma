@@ -28,8 +28,19 @@ model Manga{
   status Status  @default(Ongoing)
   author String? 
   categories CategoriesOnManga[]
+  chapters Chapter[]
 }
-
+model Chapter{
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  volume Int @unique
+  description String?
+  // images String @unique
+  //capa_url String @unique
+  manga  Manga @relation(fields: [mangaId], references: [id])
+  mangaId Int
+ 
+}
 
 model Category{
   id Int @id @default(autoincrement())
