@@ -29,12 +29,12 @@ model Manga{
   author String? 
   categories CategoriesOnManga[]
   // chapters Chapter[]
+  //categorias tsring casr[  ]
 }
-
+// post(/categorias)
 // model Chapter{
 //   id Int @id @default(autoincrement())
 //   createdAt DateTime @default(now())
-//   title String @db.VarChar(255)
 //   imagem String @unique
 //   manga Manga @relation(fields: [mangaID], references: [id])
 //   mangaID Int
@@ -65,28 +65,5 @@ enum Status {
   Ongoing
   Finished
 }
-// model Post {
-//   id        Int      @id @default(autoincrement())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   title     String   @db.VarChar(255)
-//   content   String?
-//   published Boolean  @default(false)
-//   author    User     @relation(fields: [authorId], references: [id])
-//   authorId  Int
-// }
 
-// model Profile {
-//   id     Int     @id @default(autoincrement())
-//   bio    String?
-//   user   User    @relation(fields: [userId], references: [id])
-//   userId Int     @unique
-// }
 
-// model User {
-//   id      Int      @id @default(autoincrement())
-//   email   String   @unique
-//   name    String?
-//   posts   Post[]
-//   profile Profile?
-// }

@@ -13,7 +13,7 @@ const mangaCategoryController = new MangaCategoryController(mangaCategoryService
 mangaCategoryRoutes.post('/',(request, response) => {
     return mangaCategoryController.handle(request, response);
  })
- mangaCategoryRoutes.delete('/:id',(request, response) => {
+ mangaCategoryRoutes.delete('/',(request, response) => {
     return mangaCategoryController.deleteRelation(request, response);
  })
 

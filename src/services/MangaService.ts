@@ -28,7 +28,7 @@ export class MangaService{
             this.mangaRepository.createManga({title,description,capaURL,author});
         }
     }
-
+    //update de categoria do manga - 
     async getAllService(){
         const allMangas = await this.mangaRepository.listManga();
         return allMangas;
