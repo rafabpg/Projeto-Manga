@@ -17,8 +17,6 @@ export class MangaCategoryService{
 
     }
     async delete({mangaId,categoryId}:CreateMangaCategoryRequest){
-
         await this.mangaCategoryRepository.deleteMangaCategoryRelation({mangaId,categoryId});
-
-  }
+    }
 }
