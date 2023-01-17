@@ -7,9 +7,12 @@ class AuthController {
     async login(request: Request, response: Response){
         const {username, password} = request.body;
         try{
-            return this.authService.login
+            const accessToken = await this.authService.login({username, password});
+            return response.status(200).json(accessToken)
         } catch(err) {
             return response.status(401).json({err});
         }
     }
 }
+
+export { AuthController };

@@ -1,4 +1,4 @@
-import { UserRepository } from '../repositories/implementations/UserRepository';
+import { UserRepository } from '../repositories/UserRepository';
 
 interface CreateUserRequest{
     name:string,

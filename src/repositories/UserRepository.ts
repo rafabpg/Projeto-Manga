@@ -1,6 +1,6 @@
-import { UserDTO } from '../../dtos/CreateUserDTO';
-import { IUserRepository } from '../IUserRepository';
-import { prisma } from '../../database';
+import { UserDTO } from '../dtos/CreateUserDTO';
+import { IUserRepository } from './IUserRepository';
+import { prisma } from '../database';
 import { User } from '@prisma/client';
 
 class UserRepository implements IUserRepository {

@@ -1,4 +1,4 @@
-import { UserRepository } from "../repositories/implementations/UserRepository";
+import { UserRepository } from "../repositories/UserRepository";
 import jwt from 'jsonwebtoken';
 
 interface LoginRequest{
@@ -9,9 +9,13 @@ interface LoginRequest{
 class AuthService {
     constructor(private userRepository: UserRepository){}
     async login({username, password}: LoginRequest){
-        const user =  this.userRepository.findByUsername(username)
+        const user = await this.userRepository.findByUsername(username)
+        const userF = { username: user?.username}
         const token = process.env.ACCESS_TOKEN_SECRET;
-        const accessToken = jwt.sign(user, token as string)
+        // console.log(token)
+        const accessToken = jwt.sign(userF, token as string)
+        console.log(accessToken)
+        return { accessToken: accessToken };
     }
 }
 
