@@ -6,7 +6,7 @@ import { prisma } from "../database";
 
 
 class CategoryRepository implements ICategoryRepository{
-    async createCategory({name}: CreateCategoryDTO): Promise<void> {
+    async create({name}: CreateCategoryDTO): Promise<void> {
         await prisma.category.create({
             data:{
                 name: name,
@@ -26,7 +26,7 @@ class CategoryRepository implements ICategoryRepository{
         return specificCategory;
     }
 
-    async deleteCategory(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         await prisma.category.delete({
             where:{
                 id: Number(id),

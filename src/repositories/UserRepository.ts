@@ -4,7 +4,7 @@ import { prisma } from '../database';
 import { User } from '@prisma/client';
 
 class UserRepository implements IUserRepository {
-    async createUser({name,email,username,lastname,password}: CreateUserDTO): Promise<void> {
+    async create({name,email,username,lastname,password}: CreateUserDTO): Promise<void> {
         await prisma.user.create({
             data:{
                 name:name,
@@ -20,7 +20,7 @@ class UserRepository implements IUserRepository {
         const usersAll =  await prisma.user.findMany();
         return usersAll;
     }
-    async readUser(id: string): Promise<User | null> {
+    async findByID(id: string): Promise<User | null> {
         const SpecificUser = await prisma.user.findFirst({
             where:{
                 id:Number(id),
@@ -31,7 +31,7 @@ class UserRepository implements IUserRepository {
         })
         return SpecificUser;
     }
-    async updateUser({id,name,lastname,password}: any): Promise<User > {
+    async update({id,name,lastname,password}: any): Promise<User > {
         const updateUser = await prisma.user.update({
             where:{
                 id:Number(id),
@@ -45,7 +45,7 @@ class UserRepository implements IUserRepository {
         return updateUser;
     }
 
-    async deleteUser(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         await prisma.user.delete({
             where: {
                 id:Number(id),

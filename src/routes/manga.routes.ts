@@ -10,7 +10,7 @@ const mangaService = new MangaService(mangaRepository);
 const mangaController = new MangaController(mangaService);
 
 mangaRoutes.post('/',(request, response) => {
-    return mangaController.handle(request, response);
+    return mangaController.create(request, response);
  })
  
  mangaRoutes.get('/', (request, response) => {
@@ -18,11 +18,11 @@ mangaRoutes.post('/',(request, response) => {
  })
  
  mangaRoutes.get('/:id', (request, response) => {
-     return mangaController.getSpecificManga(request, response);
+     return mangaController.findByID(request, response);
  })
  
 mangaRoutes.get('/author/:author', (request, response) => {
-    return mangaController.getMangaByAuthor(request, response);
+    return mangaController.findByAuthor(request, response);
 })
 
  mangaRoutes.put('/:id', (request, response) => {
@@ -37,8 +37,9 @@ mangaRoutes.patch('/:id/published', (request, response) => {
     return mangaController.publishManga(request, response);
 })
 
+
  mangaRoutes.delete('/:id', (request, response) => {
-     return mangaController.deleteManga(request, response);
+     return mangaController.delete(request, response);
  })
 
 

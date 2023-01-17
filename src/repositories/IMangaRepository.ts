@@ -3,8 +3,8 @@ import { CreateMangaDTO } from '../dtos/CreateMangaDTO';
 
 interface IMangaRepository{
     createManga(createManga:CreateMangaDTO):Promise<void>;
-    listManga():Promise<Manga[]>;
-    readManga(id:string):Promise<Manga | null>;
+    getAll():Promise<Manga[]>;
+    findByID(id:string):Promise<Manga | null>;
     updateManga(manga:any):Promise<Manga>;
     deleteManga(id:string):Promise<void>;
     findByAuthor(author:string):Promise<Manga[]>;

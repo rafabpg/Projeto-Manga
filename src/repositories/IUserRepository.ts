@@ -2,11 +2,11 @@ import { CreateUserDTO } from '../dtos/CreateUserDTO';
 import { User } from '@prisma/client';
 
 interface IUserRepository{
-    createUser(createUserDto:CreateUserDTO):Promise<void >;
+    create(createUserDto:CreateUserDTO):Promise<void >;
     listUser():Promise<User[] | null>;
-    readUser(id:string):Promise<User | null>;
-    updateUser(user:any):Promise<User>;
-    deleteUser(id:string):Promise<void>;
+    findByID(id:string):Promise<User | null>;
+    update(user:any):Promise<User>;
+    delete(id:string):Promise<void>;
     findByUsername(username:string):Promise<Boolean>;
     findByEmail(email:string):Promise<Boolean>;
 }

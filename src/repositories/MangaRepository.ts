@@ -5,23 +5,28 @@ import { prisma } from '../database';
 
 
 class MangaRepositorie implements IMangaRepository{
-    async createManga({title,description,capaURL,author}: CreateMangaDTO): Promise<void> {
+    async createManga({title,description,capaURL,author,id_category}: CreateMangaDTO): Promise<void> {
         await prisma.manga.create({
             data:{
-                title: title,
-                description:description,
-                capaURL:capaURL,
-                author:author
-            }
+                    title: title,
+                    description:description,
+                    capaURL:capaURL,
+                    author:author,
+                    categories:{
+                        create:{
+                            categoryId:Number(id_category)
+                        }
+                    }
+            },
         })
     }
     
-    async listManga(): Promise<Manga[]> {
+    async getAll(): Promise<Manga[]> {
         const mangaAll = await prisma.manga.findMany();
         return mangaAll;
     }
 
-    async readManga(id: string): Promise<Manga | null> {
+    async findByID(id: string): Promise<Manga | null> {
         const specificManga = await prisma.manga.findFirst({
             where:{
                 id: Number(id),

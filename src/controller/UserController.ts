@@ -3,13 +3,13 @@ import { CreateUserService } from './../services/UserService';
 
 
 
-class CreateUserController{
+class UserController{
     constructor(private userService : CreateUserService){}
 
-    async handle(request:Request,response:Response){
+    async create(request:Request,response:Response){
         const {email,name,username,lastname,password} = request.body;
         try {
-            await this.userService.execute({email,name,username,lastname,password});
+            await this.userService.create({email,name,username,lastname,password});
             return response.status(201).send({message:'Usuário criado com sucesso'});
         } catch (error:any) {
             return response.status(400).json({error: error.message});
@@ -18,38 +18,38 @@ class CreateUserController{
 
     async getAll(request:Request,response:Response){
         try {
-            const allUsers =  await this.userService.getAllService();
+            const allUsers =  await this.userService.getAll();
             return response.status(200).json(allUsers);
         } catch (error:any) {
             return response.status(400).json({error: error.message});
         }
     }
     
-    async getSpecificUser(request:Request,response:Response){
+    async findByID(request:Request,response:Response){
         const {id} = request.params;
         try {
-            const specificUser = await this.userService.getSpecificUserService(id);
+            const specificUser = await this.userService.findByID(id);
             return response.status(200).json(specificUser);
         } catch (error:any) {
             return response.status(404).json({error: error.message});
         }
     }
 
-    async updateUser(request:Request,response:Response){
+    async update(request:Request,response:Response){
         const {id} = request.params;
         const {name,lastname,password} = request.body;
         try {
-            const updateUserController = await this.userService.updateUserService({id,name,lastname,password});
+            const updateUserController = await this.userService.update({id,name,lastname,password});
             return response.status(200).json(updateUserController);
         } catch (error:any) {
             return response.status(400).json({error: error.message});
         }
     }
 
-    async deleteUser(request:Request,response:Response){
+    async delete(request:Request,response:Response){
         const {id} = request.params;
         try {
-            await this.userService.deleteUserService(id);
+            await this.userService.delete(id);
             return response.status(200).send({message:'usuario deletado com sucesso'});
         } catch (error:any) {
             return response.status(400).json({error: error.message});
@@ -58,4 +58,4 @@ class CreateUserController{
 
 }
 
-export {CreateUserController}
+export {UserController}

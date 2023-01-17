@@ -18,7 +18,7 @@ interface UpdateUserRequest{
 export class CreateUserService{
     constructor( private userRepository: UserRepository){}
 
-    async execute({name,email,username,lastname,password}:CreateUserRequest){
+    async create({name,email,username,lastname,password}:CreateUserRequest){
         let checkUsername = await this.userRepository.findByUsername(username);
         if(checkUsername){
             throw Error('Username ja em uso');
@@ -28,34 +28,34 @@ export class CreateUserService{
             if(checkEmail){
                 throw Error('Email ja em uso');
             } 
-            this.userRepository.createUser({name,email,username,lastname,password})
+            this.userRepository.create({name,email,username,lastname,password})
         }
     }
 
-    async getAllService(){
+    async getAll(){
         const allUser = await this.userRepository.listUser();
         return allUser;
     }
 
-    async getSpecificUserService(identifier:string){
-        const userSpecificService = await this.userRepository.readUser(identifier);
+    async findByID(id:string){
+        const userSpecificService = await this.userRepository.findByID(id);
         if(userSpecificService == null) throw Error('Usuario não encontrado');
         //checar se foi falso
         return userSpecificService;
     }
 
-    async updateUserService({id,name,lastname,password}:UpdateUserRequest){
-        const userSpecificService = await this.userRepository.readUser(id);
+    async update({id,name,lastname,password}:UpdateUserRequest){
+        const userSpecificService = await this.userRepository.findByID(id);
         if(userSpecificService == null) throw Error('Usuario não encontrado');
-        const updateUser = await this.userRepository.updateUser({id,name,lastname,password});
+        const updateUser = await this.userRepository.update({id,name,lastname,password});
         return updateUser;
     }
 
-    async deleteUserService(identifier:string){
+    async delete(id:string){
         //check if user exist
-        const userSpecificService = await this.userRepository.readUser(identifier);
+        const userSpecificService = await this.userRepository.findByID(id);
         if(userSpecificService == null) throw Error('Usuario não encontrado');
-        this.userRepository.deleteUser(identifier);
+        this.userRepository.delete(id);
     }
 }
 

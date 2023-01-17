@@ -7,22 +7,22 @@ interface CreateCategoryRequest{
 export class CategoryService{
     constructor( private categoryRepository: CategoryRepository){}
 
-    async execute({name}:CreateCategoryRequest){
+    async create({name}:CreateCategoryRequest){
         const checkTitleAlreadyExist = await this.categoryRepository.findByName(name);
         if(checkTitleAlreadyExist) throw new Error('Essa categoria já foi criada');
-        await this.categoryRepository.createCategory({name});
+        await this.categoryRepository.create({name});
     }
 
-    async getSpecificCategoryService(id:string){
+    async findByID(id:string){
         const specificCategory = await this.categoryRepository.findByID(id);
         return specificCategory;
     }
-    async deleteCategoryService(id:string){
+    async delete(id:string){
         const checkCategoryExist = await this.categoryRepository.findByID(id);
         if(checkCategoryExist== null) throw Error('Categoria não encontrado');
-        await this.categoryRepository.deleteCategory(id);
+        await this.categoryRepository.delete(id);
     }
-    async getAllCategoriesService(){
+    async getAll(){
          const getAllCategories = await this.categoryRepository.getAll();
          return getAllCategories;
     }
