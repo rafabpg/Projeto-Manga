@@ -96,5 +96,18 @@ class MangaService{
         return specificChapter;
     }
 
+    async deleteChapter(id:string){
+        const specificChapter = await this.mangaRepository.getChapterByID(id)
+        if(specificChapter == null) throw new Error('Capitulo não encontrado');
+        await this.mangaRepository.deleteChapter(id);
+    }
+
+    async updateChapter(id:string,volume?:number,description?:string,images?:string[],capa_url?:string){
+        const specificChapter = await this.mangaRepository.getChapterByID(id);
+        if(specificChapter == null) throw new Error('Capitulo não encontrado');
+        const chapterUpdated = await this.mangaRepository.updateChapter(id,{volume,description,images,capa_url});
+        return chapterUpdated;
+    }
+
 }
 export {MangaService};

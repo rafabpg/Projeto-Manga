@@ -125,6 +125,28 @@ class MangaController{
             return response.status(400).json({error: error.message});
         }
     }
+
+    async deleteChapter(request:Request,response:Response){
+        const {id} = request.params;
+        try {
+            await this.mangaService.deleteChapter(id);
+            return response.status(200).send({message:'Capitulo deletado com sucesso'});
+        } catch (error:any) {
+            return response.status(400).json({error: error.message});
+        }
+    }
+
+    async updateChapter(request:Request,response:Response){
+        const {id} = request.params;
+        const {volume,description,images,capa_url} = request.body;
+        try {
+            const chapterUpdated = await this.mangaService.updateChapter(id,volume,description,images,capa_url);
+            return response.status(200).json(chapterUpdated);
+        } catch (error:any) {
+            return response.status(400).json({error: error.message});
+        }
+    }
+
 }
 
 export {MangaController};

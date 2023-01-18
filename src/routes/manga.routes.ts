@@ -59,4 +59,14 @@ mangaRoutes.get('/chapters/:id',(request, response) => {
     return mangaController.getChapterByID(request, response);
 })
 
+mangaRoutes.delete('/chapters/:id',(request, response) => {
+    return mangaController.deleteChapter(request, response);
+})
+
+mangaRoutes.put('/chapters/:id',(request, response) => {
+    return mangaController.updateChapter(request, response);
+})
+
+
+
 export {mangaRoutes};

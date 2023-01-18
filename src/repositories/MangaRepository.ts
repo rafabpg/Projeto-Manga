@@ -167,5 +167,28 @@ class MangaRepositorie implements IMangaRepository{
     }
 
 
+    async updateChapter(id:string,{volume,description,images,capa_url}:any): Promise<any> {
+        const updateChapter = await prisma.chapter.update({
+            where:{
+                id:Number(id),
+            },
+            data:{
+                capa_url:capa_url,
+                volume:volume,
+                description:description,
+                images:images,
+            }
+        })
+        return updateChapter;
+    }
+
+    async deleteChapter(id:string): Promise<void> {
+        await prisma.chapter.delete({
+            where:{
+                id:Number(id),
+            },
+        })
+    }
+
 }
 export {MangaRepositorie};

@@ -15,6 +15,8 @@ interface IMangaRepository{
     createChapter(id:string,createChapter:any):Promise<void>;
     getAllChapters(id:string):Promise<any>;
     getChapterByID(id:string,chapter_id:string):Promise<any>;
+    deleteChapter(id:string):Promise<void>;
+    updateChapter(id:string,updateChapter:any):Promise<any>;
 }
 // id:string,name:string,lastname:string,password:string
 export {IMangaRepository};
