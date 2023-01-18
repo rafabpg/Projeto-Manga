@@ -47,9 +47,16 @@ mangaRoutes.patch('/:id/categories', (request, response) => {
 
 //CAPITULOS
 
-// mangaRoutes.patch('/:id/chapters',(request, response) => {
-//     return mangaController.create(request, response);
-// })
+mangaRoutes.post('/:id/chapters',(request, response) => {
+    return mangaController.createChapter(request, response);
+})
 
+mangaRoutes.get('/:id/chapters',(request, response) => {
+    return mangaController.getAllChapters(request, response);
+})
+
+mangaRoutes.get('/chapters/:id',(request, response) => {
+    return mangaController.getChapterByID(request, response);
+})
 
 export {mangaRoutes};

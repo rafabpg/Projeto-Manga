@@ -94,6 +94,37 @@ class MangaController{
             return response.status(400).json({error: error.message});
         }
     }
+
+    async createChapter(request:Request,response:Response){
+        const {id} = request.params;
+        const {volume,description,images,capa_url} = request.body;
+        try {
+            await this.mangaService.createChapter(id,volume,description,images,capa_url);
+            return response.status(201).send({message:'Capitulo criado com sucesso'});
+        } catch (error:any) {
+            return response.status(400).json({error: error.message});
+        }
+    }
+
+    async getAllChapters(request:Request,response:Response){
+        const {id} = request.params;
+        try {
+            const allChapters = await this.mangaService.getAllChapters(id);
+            return response.status(200).json(allChapters);
+        } catch (error:any) {
+            return response.status(400).json({error: error.message});
+        }
+    }
+
+    async getChapterByID(request:Request,response:Response){
+        const {id} = request.params;
+        try {
+            const specificChapter = await this.mangaService.getChapterByID(id);
+            return response.status(200).json(specificChapter);
+        } catch (error:any) {
+            return response.status(400).json({error: error.message});
+        }
+    }
 }
 
 export {MangaController};

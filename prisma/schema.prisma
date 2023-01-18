@@ -33,14 +33,24 @@ model Manga{
 model Chapter{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
-  volume Int @unique
+  volume Int 
   description String?
-  // images []String @unique
-  //capa_url String @unique
+  images String[] @unique
+  capa_url String @unique
   manga  Manga @relation(fields: [mangaId], references: [id])
   mangaId Int
  
 }
+// cloudinary.v2.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+//   { public_id: "olympic_flag" }, 
+//   function(error, result) {console.log(result); });
+model Image {
+  id       String @default(cuid()) @id
+  publicId String @unique
+  format   String
+  version  String
+}
+
 
 model Category{
   id Int @id @default(autoincrement())

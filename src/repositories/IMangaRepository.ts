@@ -1,4 +1,4 @@
-import { Category, Manga } from '@prisma/client';
+import { Manga,Chapter } from '@prisma/client';
 import { CreateMangaDTO } from '../dtos/CreateMangaDTO';
 
 interface IMangaRepository{
@@ -12,6 +12,9 @@ interface IMangaRepository{
     findByTitle(title:string):Promise<Manga | null>;
     changeStatus(id: string):Promise<void>;
     publishManga(id: string):Promise<void>;
+    createChapter(id:string,createChapter:any):Promise<void>;
+    getAllChapters(id:string):Promise<any>;
+    getChapterByID(id:string,chapter_id:string):Promise<any>;
 }
 // id:string,name:string,lastname:string,password:string
 export {IMangaRepository};

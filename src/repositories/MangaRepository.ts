@@ -1,10 +1,12 @@
-import { Category, Manga } from "@prisma/client";
+import { Category, Chapter, Manga } from "@prisma/client";
 import { CreateMangaDTO } from "../dtos/CreateMangaDTO";
 import { IMangaRepository } from "./IMangaRepository";
 import { prisma } from '../database';
+import { mangaRoutes } from "../routes/manga.routes";
 
 
 class MangaRepositorie implements IMangaRepository{
+    
     async createManga({title,description,capaURL,author,categories}: CreateMangaDTO): Promise<void>    {
         console.log(categories);
         await prisma.manga.create({
@@ -111,6 +113,59 @@ class MangaRepositorie implements IMangaRepository{
             }
         })
     }
+
+    // CAPITULOS #############################
+
+    async createChapter(id:string, {volume,description,images,capa_url}: any): Promise<void> {
+        await prisma.manga.update({
+            where:{
+                id:Number(id),
+            },
+            data:{
+                chapters:{
+                    create:{
+                        volume:volume,
+                        description:description,
+                        images:images,
+                        capa_url:capa_url
+                    }
+                }
+            }
+        })
+    }
+
+    async getAllChapters(id:string): Promise<any> {
+        const allChapters = await prisma.manga.findMany({
+            where:{
+                id:Number(id),
+            },
+            select:{
+                chapters:{
+                    select:{
+                        id :true,
+                        createdAt:true,
+                        images:true,
+                        volume:true,
+                        description:true,
+                        capa_url:true,
+                        mangaId:true
+                    }
+                }
+            }
+        })
+        return allChapters;
+    }
+
+    async getChapterByID(id:string): Promise<any | null> {
+        console.log(id)
+        const specificChapter = await prisma.chapter.findFirst({
+            where:{
+                id:Number(id),
+            },
+        })
+        return specificChapter;
+    }
+
 
 }
 export {MangaRepositorie};
