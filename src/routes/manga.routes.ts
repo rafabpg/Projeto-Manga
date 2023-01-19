@@ -2,14 +2,14 @@ import { Router } from "express";
 import { MangaRepositorie } from "../repositories/MangaRepository";
 import { MangaService } from "../services/MangaService";
 import { MangaController } from "../controller/MangaController";
-
+import { upload } from "../config/multer";
 
 const mangaRoutes = Router();
 const mangaRepository = new MangaRepositorie();
 const mangaService = new MangaService(mangaRepository);
 const mangaController = new MangaController(mangaService);
 
-mangaRoutes.post('/',(request, response) => {
+mangaRoutes.post('/',upload.single('image'),(request, response) => {
     return mangaController.create(request, response);
 })
  
@@ -46,7 +46,7 @@ mangaRoutes.patch('/:id/categories', (request, response) => {
  })
 
 //CAPITULOS
-
+//,upload.array('image')
 mangaRoutes.post('/:id/chapters',(request, response) => {
     return mangaController.createChapter(request, response);
 })

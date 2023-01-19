@@ -18,14 +18,18 @@ cloudinary.v2.config({
 
 // Transform the image
 
-function uploadImage(imageUploaded: string) {
+function uploadImage(imageUploaded: string,folderName:string) {
    return new Promise((resolve, reject) => {
       cloudinary.v2.uploader.upload(
         imageUploaded,
         { width: 400, height: 300, crop: "fill" },
         (err, res) => {
           if (err) reject(err);
-          resolve(res);
+          resolve({
+            folder: folderName,
+            url: res?.secure_url,
+            id:res?.public_id,
+          });
         }
       );
    });
