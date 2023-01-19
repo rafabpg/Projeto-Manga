@@ -49,9 +49,10 @@ class MangaController{
 
     async updateManga(request:Request,response:Response){
         const {id} = request.params;
-        const {title,description,capaURL,author} = request.body;
+        const {title,description,author} = request.body;
+        const capaImage = request.file!.path
         try {
-            const updateMangaController = await this.mangaService.updateManga({id,title,description,capaURL,author});
+            const updateMangaController = await this.mangaService.updateManga({id,title,description,capaImage,author});
             return response.status(200).json(updateMangaController);
         } catch (error:any) {
             return response.status(400).json({error: error.message});
@@ -97,16 +98,18 @@ class MangaController{
         }
     }
 
-    async createChapter(request:Request,response:Response){
-        const {id} = request.params;
-        const {volume,description,images,capa_url} = request.body;
-        try {
-            await this.mangaService.createChapter(id,volume,description,images,capa_url);
-            return response.status(201).send({message:'Capitulo criado com sucesso'});
-        } catch (error:any) {
-            return response.status(400).json({error: error.message});
-        }
-    }
+    // async createChapter(request:Request,response:Response){
+    //     const {id} = request.params;
+    //     const {volume,description} = request.body;
+    //     const capaImage = request.file?.path;
+    //     const imagesChapter = request.files
+    //     try {
+    //         await this.mangaService.createChapter(id,volume,description,imagesChapter,capaImage);
+    //         return response.status(201).send({message:'Capitulo criado com sucesso'});
+    //     } catch (error:any) {
+    //         return response.status(400).json({error: error.message});
+    //     }
+    // }
 
     async getAllChapters(request:Request,response:Response){
         const {id} = request.params;

@@ -16,7 +16,8 @@ class MangaRepositorie implements IMangaRepository{
                     cloudinary_id:capaURL.public_id,
                     author:author,
                     categories:{
-                        create:categories.map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
+                        create:
+                         Array.from(categories).map((itens: { id: string; }) =>({ categoryId: Number(itens.id)}))  
                     }
             },
         })
@@ -44,7 +45,8 @@ class MangaRepositorie implements IMangaRepository{
                 title:title,
                 description:description,
                 author:author,
-                capaURL:capaURL
+                capaURL:capaURL.url,
+                cloudinary_id:capaURL.public_id,
             }
         })
         return updateManga
@@ -60,7 +62,7 @@ class MangaRepositorie implements IMangaRepository{
                 categories:{
                     deleteMany:{},
                     create:
-                        newCategories.map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
+                    Array.from(newCategories).map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
                     
                 }  
                 

@@ -26,7 +26,7 @@ function uploadImage(imageUploaded: string,folderName:string) {
         (err, res) => {
           if (err) reject(err);
           resolve({
-            folder: folderName,
+            asset_folder: folderName,
             url: res?.secure_url,
             id:res?.public_id,
           });
