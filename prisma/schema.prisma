@@ -27,7 +27,7 @@ model Manga{
   published Boolean  @default(false)
   status Status  @default(Ongoing)
   author String? 
-  cloudinary_id String @unique
+  cloudinary_id String? @unique
   categories CategoriesOnManga[]
   chapters Chapter[]
 }

@@ -1,8 +1,7 @@
-import { Category, Chapter, Manga } from "@prisma/client";
+import { Manga } from "@prisma/client";
 import { CreateMangaDTO } from "../dtos/CreateMangaDTO";
 import { IMangaRepository } from "./IMangaRepository";
 import { prisma } from '../database';
-import { mangaRoutes } from "../routes/manga.routes";
 
 
 class MangaRepositorie implements IMangaRepository{
@@ -13,11 +12,11 @@ class MangaRepositorie implements IMangaRepository{
             data:{
                     title: title,
                     description:description,
-                    capaURL:capaURL,
+                    capaURL:capaURL.url,
+                    cloudinary_id:capaURL.public_id,
                     author:author,
                     categories:{
-                        create:
-                        categories.map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
+                        create:categories.map((itens: { id: string; }) =>({ categoryId: Number(itens.id)})) 
                     }
             },
         })

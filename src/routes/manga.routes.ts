@@ -9,7 +9,7 @@ const mangaRepository = new MangaRepositorie();
 const mangaService = new MangaService(mangaRepository);
 const mangaController = new MangaController(mangaService);
 
-mangaRoutes.post('/',upload.single('image'),(request, response) => {
+mangaRoutes.post('/',upload.single('capaURL'),(request, response) => {
     return mangaController.create(request, response);
 })
  

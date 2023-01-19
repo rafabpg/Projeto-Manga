@@ -1,3 +1,4 @@
+import { uploadImage } from "../database/cloudiNary"
 import { MangaRepositorie } from "../repositories/MangaRepository"
 
 interface UpdateMangaRequest{
@@ -11,7 +12,7 @@ interface UpdateMangaRequest{
 interface CreateMangaRequest{
     title:string 
     description?:string
-    capaURL: string 
+    capaImage: string
     author?: string
     categories:[]
 }
@@ -19,13 +20,16 @@ interface CreateMangaRequest{
 class MangaService{
     constructor( private mangaRepository: MangaRepositorie){}
 
-    async create({title,description,capaURL,author,categories}:CreateMangaRequest){
-        let checkTitle = await this.mangaRepository.findByTitle(title);
-        if(checkTitle){
-            throw Error('Titulo já em uso');
-        } 
-        else{
-            this.mangaRepository.createManga({title,description,capaURL,author,categories});
+    async create({title,description,capaImage,author,categories}:CreateMangaRequest){
+        const capaURL =  await uploadImage(capaImage,title);
+        if(capaURL){
+            let checkTitle = await this.mangaRepository.findByTitle(title);
+            if(checkTitle){
+                throw Error('Titulo já em uso');
+            } 
+            else{
+                this.mangaRepository.createManga({title,description,capaURL,author,categories});
+            }
         }
     }
 

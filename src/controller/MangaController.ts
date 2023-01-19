@@ -7,9 +7,11 @@ class MangaController{
     constructor(private mangaService : MangaService){}
 
     async create(request:Request,response:Response){
-        const {title,description,capaURL,author,categories} = request.body;
+        const {title,description,author,categories} = request.body;
+        const capaImage = request.file!.path
+        console.log(capaImage,title,description,author,categories);
         try {
-            await this.mangaService.create({title,description,capaURL,author,categories});
+            await this.mangaService.create({title,description,author,categories,capaImage});
             return response.status(201).send({message:'Manga criado com sucesso'});
         } catch (error:any) {
             return response.status(400).json({error: error.message});
